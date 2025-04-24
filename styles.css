@@ -1,0 +1,883 @@
+:root {
+    --primary-color: #007AFF;
+    --success-color: #34C759;
+    --warning-color: #FF9500;
+    --error-color: #FF3B30;
+    --background-color: #F5F5F7;
+    --surface-color: #FFFFFF;
+    --border-color: #D2D2D7;
+    --text-primary: #1D1D1F;
+    --text-secondary: #86868B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 8px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+}
+
+.upload-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.file-upload {
+    background: var(--surface-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.file-upload h2 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.dropzone {
+    position: relative;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #f8f9fa;
+}
+
+.dropzone.dragover {
+    border-color: var(--primary-color);
+    background-color: rgba(0,122,255,0.05);
+}
+
+.file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-icon {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.upload-text p {
+    margin-bottom: 0.5rem;
+}
+
+.upload-hint {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.preview-area {
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.preview-area table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.preview-area th,
+.preview-area td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.preview-area th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.preview-area tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.preview-area tr:hover {
+    background-color: #f5f5f5;
+}
+
+.action-area {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.compare-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.compare-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.compare-button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.compare-button:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.result-area {
+    background: var(--surface-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.result-area h2 {
+    margin-bottom: 1rem;
+}
+
+.legend {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.color-box {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+}
+
+.color-box.match {
+    background-color: rgba(52,199,89,0.2);
+}
+
+.color-box.diff {
+    background-color: rgba(255,59,48,0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border: none;
+}
+
+th {
+    background-color: transparent;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .upload-area {
+        grid-template-columns: 1fr;
+    }
+
+    .app {
+        padding: 1rem;
+    }
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #3498db;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.loading-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.loading-subtitle {
+    font-size: 14px;
+    color: #666;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+tr.unknown {
+    background-color: rgba(134,134,139,0.1);
+}
+
+.footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.copyright {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.copyright p {
+    margin: 0;
+}
+
+.copyright p:first-child {
+    font-weight: 500;
+}
+
+/* 修改比对结果表格样式 */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.result-table th, 
+.result-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: #f5f5f5;
+    position: sticky;
+    top: 0;
+}
+
+/* 匹配行的背景色为绿色 */
+.result-table tr.match-row {
+    background-color: #e6ffe6;
+}
+
+/* 未匹配行的背景色为粉色 */
+.result-table tr.diff-row {
+    background-color: #ffe6e6;
+}
+
+/* 状态列样式 */
+.result-table .status-cell {
+    text-align: center;
+    width: 50px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 匹配状态（绿色✓） */
+.result-table .status-cell.match {
+    color: #34C759;  /* 绿色 */
+}
+
+/* 差异状态（红色✗） */
+.result-table .status-cell.diff {
+    color: #FF3B30;  /* 红色 */
+}
+
+.result-table tr.modified,
+.result-table tr.new {
+    background-color: #ffe6e6;  /* 浅粉色背景 */
+    color: red;  /* 保持文字为红色 */
+}
+
+.file-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.result-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.comparison-stats {
+    min-width: 200px;
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 1rem;
+}
+
+.stats-header {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stats-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.stats-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0.5rem 0;
+}
+
+.stats-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stats-label {
+    color: var(--text-secondary);
+}
+
+.stats-value {
+    font-weight: 500;
+    font-family: monospace;
+}
+
+.stats-item.total {
+    font-weight: 600;
+    padding-top: 0.5rem;
+}
+
+.stats-value.highlight-red {
+    color: #D32F2F;  /* 使用红色 */
+    font-weight: 600;
+}
+
+.stats-value.highlight-new {
+    color: #D32F2F;  /* 改为红色 */
+}
+
+.f10-content {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    display: block;
+    border: 1px solid #e6f0ff;
+}
+
+.f10-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.f10-value {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: monospace;
+    word-break: break-all;
+    padding: 0.25rem 0;
+}
+
+.remark-content {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.remark-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.remark-value {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 删除这些样式 */
+.flow-number,
+.flow-label,
+.flow-value,
+.manual-input {
+    display: none;
+}
+
+/* 删除版本号相关样式 */
+.version-number {
+    display: none;
+}
+
+/* 添加改动状态的样式 */
+.modified {
+    color: red;
+}
+
+/* 修改比对结果的样式 */
+.result-area table tr.modified,   /* 改动的行 */
+.result-area table tr.new {      /* 新增的行 */
+    color: red;
+}
+
+/* 错误提示样式 */
+.error-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-left: 5px solid #e74c3c;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.error-icon {
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.error-content {
+    flex: 1;
+}
+
+.error-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.error-text {
+    font-size: 14px;
+    color: #555;
+}
+
+/* 预览区域加载状态 */
+.preview-area.loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.preview-area.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+}
+
+/* 添加调试信息样式 */
+.debug-info {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.error {
+    color: #d32f2f;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+/* 结果表格样式 */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.result-table th, .result-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+}
+
+.result-table tr.match {
+    background-color: #e6ffe6;
+}
+
+.result-table tr.diff {
+    background-color: #ffe6e6;
+}
+
+.status-cell {
+    text-align: center;
+    width: 50px;
+}
+
+.match-icon {
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.diff-icon {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 比对结果摘要 */
+.result-summary {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.result-summary p {
+    margin-bottom: 10px;
+}
+
+.match-count {
+    color: green;
+    font-weight: bold;
+}
+
+.diff-count {
+    color: red;
+    font-weight: bold;
+}
+
+.legend {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.legend-item {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.legend-item span {
+    margin-right: 8px;
+}
+
+/* 变更详情样式 */
+.changes-cell {
+    font-size: 14px;
+    max-width: 350px;
+}
+
+.change-item {
+    margin: 5px 0;
+    line-height: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.field-name {
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+}
+
+.old-value, .new-value {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.old-value {
+    color: #e74c3c;
+    text-decoration: line-through;
+    margin-right: 2px;
+}
+
+.new-value {
+    color: #2ecc71;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+/* 调整箭头位置和样式 */
+.change-arrow {
+    font-weight: bold;
+    font-size: 22px;
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 6px;
+    line-height: 1;
+    position: relative;
+    top: -2px;
+}
+
+.new-tag {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.change-tag {
+    display: inline-block;
+    background-color: #FF9800;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.match-count {
+    color: green;
+    font-weight: bold;
+}
+
+.diff-count {
+    color: red;
+    font-weight: bold;
+}
+
+.change-count {
+    color: #FF9800;
+    font-weight: bold;
+}
+
+.new-count {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.result-table td.match {
+    color: green;
+}
+
+.result-table td.diff {
+    color: red;
+}
+
+.result-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.result-table th {
+    background-color: #f5f5f5;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.result-stats {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.stats-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-symbol {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.status-symbol.match {
+    color: #34C759;  /* 绿色 */
+}
+
+.status-symbol.diff {
+    color: #FF3B30;  /* 红色 */
+}
+
+/* 美化统计信息样式 */
+.stats-box {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.stats-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.stats-details {
+    font-size: 16px;
+    color: #666;
+}
+
+.total-count {
+    font-weight: bold;
+    color: #333;
+}
+
+.match-count {
+    font-weight: bold;
+    color: #34C759;
+}
+
+.diff-count {
+    font-weight: bold;
+    color: #FF3B30;
+}
+
+/* 调整图例样式 */
+.legend {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.legend-item {
+    margin-bottom: 10px;
+}
+
+.legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.status-symbol {
+    font-size: 20px;
+    margin-right: 10px;
+} 

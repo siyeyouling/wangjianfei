@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赣州卷烟厂物资管理科配方比对系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>赣州卷烟厂物资管理科—配方比对系统</h1>
+            <p class="subtitle">上传新旧Excel文件，查看比对结果</p>
+        </header>
+
+        <div class="upload-area">
+            <div class="file-upload">
+                <div class="file-header">
+                    <h2>旧版本</h2>
+                </div>
+                <div class="dropzone">
+                    <input type="file" id="oldFileInput" class="file-input" accept=".xlsx, .xls">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">
+                        <p>点击或拖拽上传Excel文件</p>
+                        <p class="upload-hint">支持.xlsx和.xls格式</p>
+                    </div>
+                </div>
+                <div id="oldFilePreview" class="preview-area"></div>
+            </div>
+
+            <div class="file-upload">
+                <div class="file-header">
+                    <h2>新版本</h2>
+                </div>
+                <div class="dropzone">
+                    <input type="file" id="newFileInput" class="file-input" accept=".xlsx, .xls">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">
+                        <p>点击或拖拽上传Excel文件</p>
+                        <p class="upload-hint">支持.xlsx和.xls格式</p>
+                    </div>
+                </div>
+                <div id="newFilePreview" class="preview-area"></div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <button id="compareButton" class="compare-button">开始比对</button>
+        </div>
+
+        <div id="resultArea" class="result-area">
+            <h2>比对结果</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="color-box match"></div>
+                    <span>匹配</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box diff"></div>
+                    <span>差异</span>
+                </div>
+            </div>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="copyright">
+            <p>Copyright © 2025 赣州卷烟厂物资管理科</p>
+            <p>All Rights Reserved 版权所有</p>
+        </div>
+    </footer>
+
+    <script src="js/excelHandler.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
